@@ -20,6 +20,7 @@
 # Gradle
 # ------
 .gradle
+/.gradle/*
 /build
 /buildSrc/build
 /buildSrc/subprojects/*/build
