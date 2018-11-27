@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
+ * Classe de configuração para definir arquivo com mensagens de erro
+ * injeção através do nome do atributo igual ao nome da class
+ *
  * @author s2it_rboni
  * @version $Revision: $<br/>
  * $Id: $
