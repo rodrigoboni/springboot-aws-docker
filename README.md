@@ -23,3 +23,6 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * docker stop id - parar container (obter id do comando ps)
 * docker images - listar imagens
 * docker start nome - iniciar container
+
+# Migração BD
+* executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
