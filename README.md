@@ -2,9 +2,19 @@
 Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 
 # Instalação docker
-* http://linuxbsdos.com/2016/12/13/how-to-install-docker-and-run-docker-containers-on-linux-mint-1818-1/
 * https://docs.docker.com/install/linux/docker-ce/ubuntu/
-* add user ao grupo docker p/ executar comandos sem sudo - sudo usermod -a -G docker $USER (reiniciar máquina após)
+* sudo apt install -y apt-transport-https ca-certificates curl \
+   software-properties-common
+* curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+      sudo apt-key add -
+* export LSB_ETC_LSB_RELEASE=/etc/upstream-release/lsb-release
+* V=$(lsb_release -cs)
+* sudo add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu ${V} stable"
+* sudo apt update -y
+* sudo apt install -y docker-ce
+* Add user to docker group. Added user can run docker command without sudo command - sudo gpasswd -a "${USER}" docker
+* reboot
 
 # Executar container docker
 * docker run -p 5432:5432 --name beerdb -e POSTGRES_USER=beerstore -e POSTGRES_PASSWORD=beerstore -e POSTGRES_DB=beerstore -d postgres:11.1-alpine
@@ -26,3 +36,7 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
+
+# Plugins Intellij à instalar:
+* Lombok
+

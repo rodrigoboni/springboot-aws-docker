@@ -18,12 +18,12 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) // define p/ implementar equals & hashcode somente com as props indicadas
 public class Beer {
   @Id
   @SequenceGenerator(name = "beer_seq", sequenceName = "beer_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beer_seq")
-  @EqualsAndHashCode.Include
+  @EqualsAndHashCode.Include //usar somente esta prop nos métodos equals & hashcode
   private Long id;
   
   @NotBlank(message = "beers-1")
