@@ -23,7 +23,7 @@ public class BeerResource {
   
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Beer create(@Valid @RequestBody Beer beer) {
+  public Beer create(@Valid @RequestBody final Beer beer) {
     return beers.save(beer);
   }
 }

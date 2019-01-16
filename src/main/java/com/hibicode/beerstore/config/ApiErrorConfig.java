@@ -18,7 +18,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 public class ApiErrorConfig {
   
   public MessageSource apiErrorMessageSource() {
-    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+    final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
     messageSource.setBasename("classpath:/api_errors");
     messageSource.setDefaultEncoding("UTF-8");
     

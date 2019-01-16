@@ -40,3 +40,5 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 # Plugins Intellij à instalar:
 * Lombok
 
+# Tratamento de erros
+* baseado no esquema de mensagens por recurso - https://alidg.me/blog/2016/9/24/rest-api-error-handling
