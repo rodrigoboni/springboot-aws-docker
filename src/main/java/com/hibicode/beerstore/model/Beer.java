@@ -20,20 +20,20 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) // define p/ implementar equals & hashcode somente com as props indicadas
 public class Beer {
-  @Id
-  @SequenceGenerator(name = "beer_seq", sequenceName = "beer_seq", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beer_seq")
-  @EqualsAndHashCode.Include //usar somente esta prop nos métodos equals & hashcode
-  private Long id;
-  
-  @NotBlank(message = "beers-1")
-  private String name;
-  
-  @NotNull(message = "beers-2")
-  @Enumerated(EnumType.STRING)
-  private BeerType type;
-  
-  @NotNull(message = "beers-3")
-  @DecimalMin(value = "0", message = "beers-4")
-  private BigDecimal volume;
+	@Id
+	@SequenceGenerator(name = "beer_seq", sequenceName = "beer_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beer_seq")
+	@EqualsAndHashCode.Include //usar somente esta prop nos métodos equals & hashcode
+	private Long id;
+	
+	@NotBlank(message = "beers-1")
+	private String name;
+	
+	@NotNull(message = "beers-2")
+	@Enumerated(EnumType.STRING)
+	private BeerType type;
+	
+	@NotNull(message = "beers-3")
+	@DecimalMin(value = "0", message = "beers-4")
+	private BigDecimal volume;
 }

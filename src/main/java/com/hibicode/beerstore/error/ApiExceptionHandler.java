@@ -40,18 +40,23 @@ public class ApiExceptionHandler {
   /**
    * método para tratamento de parâmetros inválidos recebidos nos requests
    * @param exception
-   * @param locale
+   * @param locale no request http se for informado o param "Accept-Language" o param locale recebe esta informação, p/ então ler
+   *              o arquivo api_errors_idioma correspondente
    * @return ResponseEntity
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception, Locale locale) {
+  public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException exception,
+                                                                             final Locale locale) {
     // stream de erros de validação
-    Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
+    final Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
 
     // getdefaultmessage = msg indicada nas anotações das validações nas entidades
-    List<ErrorResponse.ApiError> apiErrors = errors.map(ObjectError::getDefaultMessage).map(code -> toApiError(code, locale, exception)).collect(Collectors.toList());
+    final List<ErrorResponse.ApiError> apiErrors = errors
+        .map(ObjectError::getDefaultMessage)
+        .map(code -> toApiError(code, locale, exception, false))
+        .collect(Collectors.toList());
 
-    ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, apiErrors);
+    final ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, apiErrors);
     
     return ResponseEntity.badRequest().body(errorResponse);
   }
@@ -64,15 +69,21 @@ public class ApiExceptionHandler {
    * @param code
    * @param locale
    * @param exception
+   * @param showException
    * @return ErrorResponse.ApiError
    */
-  private ErrorResponse.ApiError toApiError(String code, Locale locale, Exception exception) {
+  private ErrorResponse.ApiError toApiError(final String code, final Locale locale, final Exception exception,
+                                            final boolean showException) {
     String message;
     try {
       message = apiErrorMessageSource.getMessage(code, null, locale);
-      String logMsg = (!Strings.isNullOrEmpty(code) ? code : "") + " " + (!Strings.isNullOrEmpty(message) ? message : NO_MESSAGE_AVALIABLE);
+      final String logMsg = (!Strings.isNullOrEmpty(code) ? code : "") + " " + (!Strings.isNullOrEmpty(message) ? message : NO_MESSAGE_AVALIABLE);
 
-      LOG.error(logMsg, exception);
+      if(showException) {
+        LOG.error(logMsg, exception);
+      } else {
+        LOG.warn(logMsg);
+      }
     } catch (NoSuchMessageException e) {
       // se não encontrar msg lançar log e retornar msg default
       LOG.error("Could not find any message for {} code under {} locale", code, locale);
