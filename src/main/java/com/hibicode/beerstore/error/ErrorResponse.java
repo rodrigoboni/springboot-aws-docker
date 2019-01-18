@@ -10,10 +10,6 @@ import java.util.List;
 
 /**
  * Bean para retornar erros
- * @author s2it_rboni
- * @version $Revision: $<br/>
- * $Id: $
- * @since 21/11/18 15:37
  */
 // anotação do jackson para definir que deve considerar propriedades com qualquer visibilidade - neste caso as privadas
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -29,7 +25,7 @@ public class ErrorResponse {
    * @param errors
    * @return
    */
-  static ErrorResponse of(HttpStatus status, List<ApiError> errors) {
+  static ErrorResponse of(final HttpStatus status, final List<ApiError> errors) {
     return new ErrorResponse(status.value(), errors);
   }
 
@@ -39,8 +35,16 @@ public class ErrorResponse {
    * @param error
    * @return
    */
-  static ErrorResponse of(HttpStatus status, ApiError error) {
+  static ErrorResponse of(final HttpStatus status, final ApiError error) {
     return new ErrorResponse(status.value(), Collections.singletonList(error));
+  }
+  
+  @Override
+  public String toString() {
+    return "ErrorResponse{" +
+        "statusCode=" + statusCode +
+        ", errors=" + errors +
+        '}';
   }
   
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -48,5 +52,13 @@ public class ErrorResponse {
   static class ApiError {
     private final String code;
     private final String message;
+  
+    @Override
+    public String toString() {
+      return "ApiError{" +
+          "code='" + code + '\'' +
+          ", message='" + message + '\'' +
+          '}';
+    }
   }
 }

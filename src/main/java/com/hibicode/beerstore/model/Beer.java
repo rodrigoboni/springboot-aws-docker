@@ -9,13 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-/**
- * @author s2it_rboni
- * @version $Revision: $<br/>
- * $Id: $
- * @since 20/11/18 17:37
- */
-
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) // define p/ implementar equals & hashcode somente com as props indicadas
