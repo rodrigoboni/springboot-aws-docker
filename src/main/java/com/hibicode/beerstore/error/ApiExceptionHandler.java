@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -22,6 +24,8 @@ import java.util.stream.Stream;
  * Classe para capturar exceções e aplicar tratamento
  */
 
+// anotação para controlar ordem de carregamento de classes com mesma função, como controller advice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 @RequiredArgsConstructor // p/ lombok criar construtor que recebe os atributos não iniciados (apierrormessagesource)
 public class ApiExceptionHandler {
@@ -29,7 +33,6 @@ public class ApiExceptionHandler {
 	// constantes para mensagens genéricas
 	private static final String NO_MESSAGE_AVALIABLE = "No message avaliable";
 	private static final String GENERIC_MESSAGE_INVALID_VALUE = "generic-invalid-value";
-	private static final String GENERIC_MESSAGE_SERVER_ERROR = "generic-server-error";
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ApiExceptionHandler.class);
 	
@@ -78,24 +81,11 @@ public class ApiExceptionHandler {
 	}
 	
 	/**
-	 * Tratamento genérico de erros, para não retornar mensagem expondo dados da aplicação
-	 */
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorResponse> handleException(final Exception exception, final Locale locale) {
-		final ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR,
-				toApiError(GENERIC_MESSAGE_SERVER_ERROR, locale));
-		
-		LOG.error(errorResponse.toString(), exception);
-		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-	}
-	
-	/**
 	 * A partir da chave / código do erro obter mensagem de erro, de acordo com locale
 	 * Utiliza bundle de mensagens
 	 * Dispara log também p/ monitoramento
 	 */
-	private ErrorResponse.ApiError toApiError(final String code, final Locale locale, final Object... args) {
+	public ErrorResponse.ApiError toApiError(final String code, final Locale locale, final Object... args) {
 		String message;
 		try {
 			message = apiErrorMessageSource.getMessage(code, args, locale);
