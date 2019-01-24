@@ -1,4 +1,4 @@
-package com.hibicode.beerstore.error;
+package com.hibicode.beerstore.error.response;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AccessLevel;
@@ -25,7 +25,7 @@ public class ErrorResponse {
    * @param errors
    * @return
    */
-  static ErrorResponse of(final HttpStatus status, final List<ApiError> errors) {
+  public static ErrorResponse of(final HttpStatus status, final List<ApiError> errors) {
     return new ErrorResponse(status.value(), errors);
   }
 
@@ -35,7 +35,7 @@ public class ErrorResponse {
    * @param error
    * @return
    */
-  static ErrorResponse of(final HttpStatus status, final ApiError error) {
+  public static ErrorResponse of(final HttpStatus status, final ApiError error) {
     return new ErrorResponse(status.value(), Collections.singletonList(error));
   }
   
@@ -49,7 +49,7 @@ public class ErrorResponse {
   
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
   @RequiredArgsConstructor
-  static class ApiError {
+  public static class ApiError {
     private final String code;
     private final String message;
   

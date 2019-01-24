@@ -1,6 +1,8 @@
 package com.hibicode.beerstore.error;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.hibicode.beerstore.error.exceptions.BusinessException;
+import com.hibicode.beerstore.error.response.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +49,7 @@ public class ApiExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException exception,
-	                                                                           final Locale locale) {
+																			   final Locale locale) {
 		// stream de erros de validação
 		final Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
 		
@@ -76,6 +78,15 @@ public class ApiExceptionHandler {
 				this.toApiError(GENERIC_MESSAGE_INVALID_VALUE, locale, exception.getValue()));
 		
 		LOG.warn(errorResponse.toString(), exception);
+		
+		return ResponseEntity.badRequest().body(errorResponse);
+	}
+
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException exception,
+																 final Locale locale) {
+		final ErrorResponse errorResponse = ErrorResponse.of(exception.getStatus(), toApiError(exception.getCode(),
+                locale ));
 		
 		return ResponseEntity.badRequest().body(errorResponse);
 	}
