@@ -44,12 +44,12 @@ public class ApiExceptionHandler {
 	/**
 	 * método para tratamento de parâmetros inválidos recebidos nos requests
 	 *
-	 * @param locale    no request http se for informado o param "Accept-Language" o param locale recebe esta informação, p/ então ler
-	 *                  o arquivo api_errors_idioma correspondente
+	 * @param locale no request http se for informado o param "Accept-Language" o param locale recebe esta informação, p/ então ler
+	 *               o arquivo api_errors_idioma correspondente
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException exception,
-																			   final Locale locale) {
+	                                                                           final Locale locale) {
 		// stream de erros de validação
 		final Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
 		
@@ -81,12 +81,12 @@ public class ApiExceptionHandler {
 		
 		return ResponseEntity.badRequest().body(errorResponse);
 	}
-
+	
 	@ExceptionHandler(BusinessException.class)
 	public ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException exception,
-																 final Locale locale) {
+	                                                             final Locale locale) {
 		final ErrorResponse errorResponse = ErrorResponse.of(exception.getStatus(), toApiError(exception.getCode(),
-                locale ));
+				locale, exception.getEntity()));
 		
 		return ResponseEntity.badRequest().body(errorResponse);
 	}

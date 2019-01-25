@@ -1,6 +1,7 @@
 package com.hibicode.beerstore.service;
 
 import com.hibicode.beerstore.error.exceptions.BeerAlreadyExistException;
+import com.hibicode.beerstore.error.exceptions.BeerNotFoundException;
 import com.hibicode.beerstore.model.Beer;
 import com.hibicode.beerstore.repository.Beers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,15 @@ public class BeerService {
     public Beer save(final Beer beer) {
         verifyIfBeerExists(beer);
         return beers.save(beer);
+    }
+    
+    public void delete(final Long id) {
+        final Optional<Beer> beer = beers.findById(id);
+        if(!beer.isPresent()) {
+            throw new BeerNotFoundException();
+        }
+        
+        beers.delete(beer.get());
     }
 
     private void verifyIfBeerExists(final Beer beer) {

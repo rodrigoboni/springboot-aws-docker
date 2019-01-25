@@ -1,9 +1,9 @@
 package com.hibicode.beerstore.service;
 
+import com.hibicode.beerstore.error.exceptions.BeerAlreadyExistException;
 import com.hibicode.beerstore.model.Beer;
 import com.hibicode.beerstore.model.BeerType;
 import com.hibicode.beerstore.repository.Beers;
-import com.hibicode.beerstore.error.exceptions.BeerAlreadyExistException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
