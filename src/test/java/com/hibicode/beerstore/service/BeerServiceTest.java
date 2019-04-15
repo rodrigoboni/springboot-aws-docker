@@ -23,7 +23,7 @@ public class BeerServiceTest {
 	@Mock // anotação p/ indicar que este attr é mockado
 	private Beers beersMocked;
 	
-	@Before
+	@Before // executa antes de cada teste
 	public void setup() {
 		// inicializa classes marcadas com @Mock
 		MockitoAnnotations.initMocks(this);
@@ -34,8 +34,11 @@ public class BeerServiceTest {
 	
 	@Test(expected = BeerAlreadyExistException.class)
 	public void should_deny_creation_of_beer_that_exists() {
+		//o when define o comportamento do objeto mockado - especificado pelo método thenReturn
 		when(beersMocked.findByNameAndType(getTestBeer().getName(), getTestBeer().getType())).thenReturn(Optional.of(getTestBeer()));
 		
+		//cria cerveja com a mesma descrição e tipo que é retornado no método getTestBeer,
+		//p/ disparar a excpetion, testando a validação
 		final Beer beer = new Beer();
 		beer.setName("Heineken");
 		beer.setType(BeerType.LAGER);
@@ -51,10 +54,12 @@ public class BeerServiceTest {
 		beer.setType(BeerType.LAGER);
 		beer.setVolume(new BigDecimal(335));
 		
+		//define o comportamento do service mockado, para retornar a cerveja definida no método getTestBeer
 		when(beersMocked.save(beer)).thenReturn(getTestBeer());
 		
 		final Beer beerSaved = beerService.save(beer);
 		
+		//confere se salvou a cerveja corretamente
 		assertThat(beerSaved.getId(), equalTo(getTestBeer().getId()));
 		assertThat(beerSaved.getName(), equalTo(getTestBeer().getName()));
 		assertThat(beerSaved.getType(), equalTo(getTestBeer().getType()));

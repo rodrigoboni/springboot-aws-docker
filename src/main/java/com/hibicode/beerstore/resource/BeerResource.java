@@ -29,13 +29,13 @@ public class BeerResource {
 	}
 	
 	@PutMapping("/{id}")
-	public Beer update(@PathVariable Long id, @Valid @RequestBody final Beer beer) {
+	public Beer update(@PathVariable final Long id, @Valid @RequestBody final Beer beer) {
 		beer.setId(id);
 		return beerService.save(beer);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
+	public ResponseEntity delete(@PathVariable final Long id) {
 		beerService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

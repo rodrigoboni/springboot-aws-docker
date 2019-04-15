@@ -22,7 +22,7 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * -p porta local:porta container - mapeamento de portas
 * --name nome do container
 * -e var ambiente - nome=valor
-* -d executar em segundo plano / daemon
+* -d executar em segundo plano / detached
 * como último param informar o nome da imagem docker (docker hub) - se for indicar versão add : e a versão (obter no docker hub)
 
 # Comandos docker
