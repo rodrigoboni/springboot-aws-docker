@@ -48,7 +48,7 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 # AWS
 * Criar alarmes de billing p/ ser avisado se houver cobrança
 
-# Terraform
+# Terraform (instalação)
 * Baixar do site (arquivo único / executável)
 * Colocar em pasta (dentro de home por ex)
 * Dar permissão de execução
@@ -60,5 +60,8 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 
 # AWS CLI
 * Configurar profile - aws configure --profile terraform
-* Inicializar / sincronizar config - terraform init
 
+# Terraform
+* Inicializar (inicial e qdo alterar alguma config) - terraform init
+* Aplicar mudanças - terraform apply
+* Mostrar plano de execução / prever o que será alterado na proxima exec de apply - terraform plan

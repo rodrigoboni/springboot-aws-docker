@@ -1,3 +1,4 @@
+# armazenar estado da infra no s3 (default local)
 terraform {
   backend "s3" {
     bucket = "rmbbeerstore"
