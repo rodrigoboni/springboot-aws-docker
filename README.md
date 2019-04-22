@@ -39,6 +39,26 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 
 # Plugins Intellij à instalar:
 * Lombok
+* Ativar o plugin
+* Marcar processamento de anotações (nas opções do compilador)
 
 # Tratamento de erros
 * baseado no esquema de mensagens por recurso - https://alidg.me/blog/2016/9/24/rest-api-error-handling
+
+# AWS
+* Criar alarmes de billing p/ ser avisado se houver cobrança
+
+# Terraform
+* Baixar do site (arquivo único / executável)
+* Colocar em pasta (dentro de home por ex)
+* Dar permissão de execução
+* Criar link simbólico em /usr/local/bin p/ acessar o terraform de qualquer pasta
+
+# AWS CLI (Instalação)
+* sudo apt-get update && apt-get install -y python-pip libpython-dev
+* sudo apt install awscli
+
+# AWS CLI
+* Configurar profile - aws configure --profile terraform
+* Inicializar / sincronizar config - terraform init
+
