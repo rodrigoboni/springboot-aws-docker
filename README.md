@@ -16,9 +16,9 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * Add user to docker group. Added user can run docker command without sudo command - sudo gpasswd -a "${USER}" docker
 * reboot
 
-# Executar container docker
+# Criar container docker
 * docker run -p 5432:5432 --name beerdb -e POSTGRES_USER=beerstore -e POSTGRES_PASSWORD=beerstore -e POSTGRES_DB=beerstore -d postgres:11.1-alpine
-* run - executar container
+* run - criar container (apesar do comando ser run ele cria um container) e em seguida iniciar (start) o container
 * -p porta local:porta container - mapeamento de portas
 * --name nome do container
 * -e var ambiente - nome=valor
@@ -29,10 +29,18 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * docker info - exibir informações gerais docker
 * docker search "linux mint" - pesquisar por imagem no docker hub
 * docker ps -a - listar containers docker, rodando ou não - remover -a p/ ver o que está em execução somente
-* docker rm grave_jones - remover container
+* docker rm nome - remover container
 * docker stop id - parar container (obter id do comando ps)
 * docker images - listar imagens
-* docker start nome - iniciar container
+* docker start nome - iniciar container criado anteriormente, usando os mesmos parâmetros
+* docker logs nome_da_imagem -f - ver logs da imagem
+
+# Estrutura / camadas docker
+* Ver workshop invillia / oriol
+* arquivo dockerfile define as camadas
+* FROM - imagem base
+* ENTRYPOINT - o que vai rodar
+* ADD - apps, arquivos etc para adicionar a imagem
 
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
