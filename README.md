@@ -16,6 +16,23 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * Add user to docker group. Added user can run docker command without sudo command - sudo gpasswd -a "${USER}" docker
 * reboot
 
+# Conceitos docker
+* sistema de virtualização de máquinas / containers utilizando / compartilhando recursos da máquina host
+* diferente de máquina virtual, que simula todo o hardware de uma máquina real
+* o docker utiliza o so da máquina host para subir os containers, compartilhando recursos de hardware
+* os containers são isolados entre si (hardware e software)
+* comparação p/ facilitar entendimento - orientação a objetos: imagem = classe e container = instância da classe
+
+# Imagens docker
+* criar arquivo "dockerfile" para indicar como criar a imagem
+* FROM - imagem base
+* ENTRYPOINT - o que vai rodar
+* ADD - apps, arquivos etc para adicionar a imagem
+
+* docker build -t repositorio/nome_imagem:versao . - cria imagem docker a partir do dockerfile - o param t define a tag da 
+imagem, o parametro seguinte (.) indica para usar a pasta atual (onde deve estar o dockerfile)
+* docker rmi contexto/nome-imagem - remover imagem
+
 # Criar container docker
 * docker run -p 5432:5432 --name beerdb -e POSTGRES_USER=beerstore -e POSTGRES_PASSWORD=beerstore -e POSTGRES_DB=beerstore -d postgres:11.1-alpine
 * run - criar container (apesar do comando ser run ele cria um container) e em seguida iniciar (start) o container
@@ -24,6 +41,8 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * -e var ambiente - nome=valor
 * -d executar em segundo plano / detached
 * como último param informar o nome da imagem docker (docker hub) - se for indicar versão add : e a versão (obter no docker hub)
+* os parâmetros passados na criação do container são persistidos, sendo assim na próxima vez que for utilizar a imagem basta 
+executar docker start nome_imagem
 
 # Comandos docker
 * docker info - exibir informações gerais docker
@@ -34,13 +53,6 @@ Projeto do curso Spring boot com Gradle, TDD, AWS e docker
 * docker images - listar imagens
 * docker start nome - iniciar container criado anteriormente, usando os mesmos parâmetros
 * docker logs nome_da_imagem -f - ver logs da imagem
-
-# Estrutura / camadas docker
-* Ver workshop invillia / oriol
-* arquivo dockerfile define as camadas
-* FROM - imagem base
-* ENTRYPOINT - o que vai rodar
-* ADD - apps, arquivos etc para adicionar a imagem
 
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
