@@ -53,6 +53,13 @@ executar docker start nome_imagem
 * docker images - listar imagens
 * docker start nome - iniciar container criado anteriormente, usando os mesmos parâmetros
 * docker logs nome_da_imagem -f - ver logs da imagem
+* docker exec -i -t <nome da imagem> /bin/bash - executa comando p/ abrir terminal no container indicado
+* docker inspect <nome do container> - detalhes de um container
+
+# Docker compose
+* gerenciar grupo de containers / automatizar criação de containers, parametros et
+* arquivo docker-compose.yml
+* docker-compose up
 
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
