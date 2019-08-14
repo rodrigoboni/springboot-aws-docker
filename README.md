@@ -95,7 +95,13 @@ executar docker start nome_imagem
 * docker run -d -p 8080:8080 -p 50000:50000 -v ~/jenkins_home:/var/jenkins_home --name local-jenkins jenkins/jenkins:lts
 * usar script modelo na doc do workshop p/ criar pipeline
 * configurar jenkins (jdk etc)
+* acessar container do jenkins para instalar jdk (acessar o bash e fazer instalação com wget, apt-get etc)
+* configurar jdk no jenkins - configuração de nós
 * utilizar pipeline armazenado no github p/ permitir alteração no pipeline sem ter que reconfigurar jenkins
+* instalar docker dentro do container jenkins (que já está em docker) para que o jenkins gere imagem docker nos pipelines
+
+# Kubernetes
+* Ferramenta para orquestração de containers
 
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
