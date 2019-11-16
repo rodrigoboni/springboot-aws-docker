@@ -41,14 +41,18 @@ public class BeerService {
     }
 
     private void verifyIfBeerExists(final Beer beer) {
+        if(beer.alreadyExist() && !beers.findById(beer.getId()).isPresent()) {
+            throw new BeerNotFoundException();
+        }
+        
         final Optional<Beer> beerByNameAndType = beers.findByNameAndType(beer.getName(), beer.getType());
 
-        if (beerByNameAndType.isPresent() && (beer.isNew() || isUpdatingToADifferentBeer(beer, beerByNameAndType))) {
+        if (beerByNameAndType.isPresent() && (beer.isNew() || isUpdatingToADifferentBeer(beer, beerByNameAndType.get()))) {
             throw new BeerAlreadyExistException();
         }
     }
 
-    private boolean isUpdatingToADifferentBeer(final Beer beer, final Optional<Beer> beerByNameAndType) {
-        return beer.alreadyExist() && !beerByNameAndType.get().equals(beer);
+    private boolean isUpdatingToADifferentBeer(final Beer beer, final Beer beerByNameAndType) {
+        return beer.alreadyExist() && !beerByNameAndType.equals(beer);
     }
 }

@@ -38,6 +38,6 @@ public class Beer {
 
 	@JsonIgnore
 	public boolean alreadyExist() {
-		return getId() != null;
+		return getId() != null && getId() > 0;
 	}
 }

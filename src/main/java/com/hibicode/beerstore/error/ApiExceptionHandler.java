@@ -88,6 +88,8 @@ public class ApiExceptionHandler {
 		final ErrorResponse errorResponse = ErrorResponse.of(exception.getStatus(), toApiError(exception.getCode(),
 				locale, exception.getEntity()));
 		
+		LOG.warn(errorResponse.toString(), exception);
+		
 		return ResponseEntity.badRequest().body(errorResponse);
 	}
 	
