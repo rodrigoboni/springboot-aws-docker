@@ -59,50 +59,6 @@ executar docker start nome_imagem
 * docker push - enviar imagem para o docker hub (tem que logar na sua conta antes) - imagem pública - ou p/ repositorio privado 
 (ver seção registry)
 
-# Docker compose
-* gerenciar grupo de containers / automatizar criação de containers, parametros et
-* arquivo docker-compose.yml
-* docker-compose up
-
-# Registry (config)
-* Repositório para imagens docker
-* Semelhante ao nexus para dependêcias de projeto
-* https://docs.docker.com/registry/
-* Iniciar o registry: docker run -d -p 5000:5000 --name registry registry:2
-  * --name registry (nome da imagem no docker local)
-  * registry:2 nome da imagem do registry no docker hub, versão 2
-
-# Registry (uso)
-* add ip atribuido no hosts para facilitar o uso do registry (opcional), podendo indicar nome da maquina em vez de ip
-* ao executar build das imagens indicar o registry: docker build -t nome_do_registry:5000/projeto .
-  * nome_do_registry é o ip da maquina (ou nome) onde o registry está
-* configurar para nao utilizar https - liberar alterando o arquivo /etc/docker/daemon.json (ou criar o arquivo)
-  * adicionar o nome do registry
-  * exemplo: { "insecure-registries":["nome_do_registry:porta",...]
-* reiniciar docker após config - sudo systemctl restart docker.service (iniciar imagens após restart)
-* definir autenticacao - https://github.com/rodrigoboni/workshop-kubernetes/tree/master/registry
-  * utilizar htpasswd (dentro do container) p/ criar arquivo com user + pass criptografada (armazenado local na maquina onde roda
-   o docker)
-  * no comando run do registry especificar os parametros do htpasswd, incluindo o path p/ arquivo de usuario e senha - obs param 
-  -v para direcionar pasta do container para volume local
-* fazer login no registry - docker login nome_do_registry:porta
-* enviar imagem para o repositorio: docker push nome_do_registry:5000/projeto
-
-# Jenkins
-* Ferramenta de CI (Continuous Delivery)
-* Instalar jenkins como container docker (ver doc workshop)
-* Mapear configuração fora do container, p/ caso de excluir container e não perder as configs
-* docker run -d -p 8080:8080 -p 50000:50000 -v ~/jenkins_home:/var/jenkins_home --name local-jenkins jenkins/jenkins:lts
-* usar script modelo na doc do workshop p/ criar pipeline
-* configurar jenkins (jdk etc)
-* acessar container do jenkins para instalar jdk (acessar o bash e fazer instalação com wget, apt-get etc)
-* configurar jdk no jenkins - configuração de nós
-* utilizar pipeline armazenado no github p/ permitir alteração no pipeline sem ter que reconfigurar jenkins
-* instalar docker dentro do container jenkins (que já está em docker) para que o jenkins gere imagem docker nos pipelines
-
-# Kubernetes
-* Ferramenta para orquestração de containers
-
 # Migração BD
 * executar ./gradlew flywayMigrate -i p/ executar migrações pendentes
 
@@ -110,27 +66,37 @@ executar docker start nome_imagem
 * Lombok
 * Ativar o plugin
 * Marcar processamento de anotações (nas opções do compilador)
+* Terraform
 
 # Tratamento de erros
 * baseado no esquema de mensagens por recurso - https://alidg.me/blog/2016/9/24/rest-api-error-handling
 
 # AWS
 * Criar alarmes de billing p/ ser avisado se houver cobrança
+* Criar usuário e associar com perfil para liberar acesso programático p/ o terraform definir a infra
+* salvar arquivo csv com credenciais
+* ATENÇÃO - NÃO ADD CREDENCIAIS EM REP GITHUB OU QQ OUTRO LOCAL ACESSÍVEL
+* COM AS CHAVES É POSSÍVEL CRIAR INSTÂNCIAS / ATIVAR SERVIÇOS ETC
+* O QUE VAI GERAR CUSTOS NA AWS
 
 # Terraform (instalação)
 * Baixar do site (arquivo único / executável)
 * Colocar em pasta (dentro de home por ex)
 * Dar permissão de execução
 * Criar link simbólico em /usr/local/bin p/ acessar o terraform de qualquer pasta
+    * ln ~/terraform/terraform /usr/local/bin/terraform
 
 # AWS CLI (Instalação)
-* sudo apt-get update && apt-get install -y python-pip libpython-dev
 * sudo apt install awscli
 
 # AWS CLI
 * Configurar profile - aws configure --profile terraform
+* cria pasta .aws, com arquivo config e credentials
+* arq config com o profile com região default etc
+* arq credentials com access key e secret key
 
 # Terraform
-* Inicializar (inicial e qdo alterar alguma config) - terraform init
+* Criar pasta terraform dentro do projeto para o qual o terraform será utilizado
+* Inicializar - terraform init ((inicial e qdo alterar alguma config), baixa arquivos e grava configs em pasta .terraform)
 * Aplicar mudanças - terraform apply
 * Mostrar plano de execução / prever o que será alterado na proxima exec de apply - terraform plan
