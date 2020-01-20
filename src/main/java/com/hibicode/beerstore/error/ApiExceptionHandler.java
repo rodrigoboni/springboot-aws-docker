@@ -55,8 +55,8 @@ public class ApiExceptionHandler {
 		
 		// getdefaultmessage = msg indicada nas anotações das validações nas entidades
 		final List<ErrorResponse.ApiError> apiErrors = errors
-				.map(ObjectError::getDefaultMessage)
-				.map(code -> toApiError(code, locale))
+				.map(ObjectError::getDefaultMessage) // defaultmessage = código da msg definido na validação
+				.map(code -> toApiError(code, locale)) // criar apierror a partir do código de erro
 				.collect(Collectors.toList());
 		
 		final ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, apiErrors);
@@ -97,6 +97,8 @@ public class ApiExceptionHandler {
 	 * A partir da chave / código do erro obter mensagem de erro, de acordo com locale
 	 * Utiliza bundle de mensagens
 	 * Dispara log também p/ monitoramento
+	 *
+	 * Object... args = varargs p/ definir parametros das mensagens
 	 */
 	public ErrorResponse.ApiError toApiError(final String code, final Locale locale, final Object... args) {
 		String message;

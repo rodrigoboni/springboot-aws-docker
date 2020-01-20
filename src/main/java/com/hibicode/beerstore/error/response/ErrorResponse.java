@@ -13,7 +13,7 @@ import java.util.List;
  */
 // anotação do jackson para definir que deve considerar propriedades com qualquer visibilidade - neste caso as privadas
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-// lombok c/ modificador de escopo do construtor
+// lombok c/ modificador de escopo do construtor para privado (p/ utilizar métodos construtores of)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
   private final int statusCode;

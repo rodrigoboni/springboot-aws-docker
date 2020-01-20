@@ -14,6 +14,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class BusinessException extends RuntimeException {
     private final String code;
-    private final String entity;
+    private final String entity; // utilizado como parametro da mensagem de erro (é genérica, para indicar em que entidade ocorreu erro)
     private final HttpStatus status;
 }
