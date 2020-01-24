@@ -23,7 +23,7 @@ resource "aws_subnet" "beerstore_subnet" {
   # usar var definida no arq variables.tf
   availability_zone = "${var.availability_zones[count.index]}"
 
-  tags {
+  tags = {
     # expressao para ler o contador acima e interpolar na string
     Name = "beerstore_subnet_${count.index}"
   }

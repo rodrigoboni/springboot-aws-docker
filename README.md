@@ -97,9 +97,12 @@ executar docker start nome_imagem
 
 # Terraform
 * Criar pasta terraform dentro do projeto para o qual o terraform será utilizado
-* Inicializar - terraform init ((inicial e qdo alterar alguma config), baixa arquivos e grava configs em pasta .terraform)
-* Aplicar mudanças - terraform apply
+* Validar e inicializar - terraform init 
+    * na primeira exec baixa arquivos e grava configs em pasta .terraform
+    * sempre valida os scripts, retorna o que será criado e indica erros
+* Aplicar mudanças - terraform apply (mostra o que será feito e pede confirmação)
 * Mostrar plano de execução / prever o que será alterado na proxima exec de apply - terraform plan
+* Destruir estrutura criada - terraform destroy (assim evita cobranças)
 * Consultar documentação do provedor escolhido (nas docs do terraform) p/ detalhes
 * É aconselhado guardar o estado do terraform em um bucket s3 em vez de arquivo local, p/ não expor dados de infra no github, por ex
 * Arquivos e detalhes:
