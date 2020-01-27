@@ -77,7 +77,10 @@ executar docker start nome_imagem
 * salvar arquivo csv com credenciais
 * ATENÇÃO - NÃO ADD CREDENCIAIS EM REP GITHUB OU QQ OUTRO LOCAL ACESSÍVEL
 * COM AS CHAVES É POSSÍVEL CRIAR INSTÂNCIAS / ATIVAR SERVIÇOS ETC
-* O QUE VAI GERAR CUSTOS NA AWS
+
+# ALERTA SOBRE CUSTOS NA AWS
+* CUIDADO AO SELECIONAR RECURSOS DA AWS, COMO AMI (OS DAS INSTÂNCIAS), TIPO DAS INSTÂNCIAS EC2 ETC
+* SEMPRE OBS ITENS ELEGÍVEIS AO NÍVEL GRÁTIS
 
 # Terraform (instalação)
 * Baixar do site (arquivo único / executável)
@@ -103,12 +106,5 @@ executar docker start nome_imagem
 * Aplicar mudanças - terraform apply (mostra o que será feito e pede confirmação)
 * Mostrar plano de execução / prever o que será alterado na proxima exec de apply - terraform plan
 * Destruir estrutura criada - terraform destroy (assim evita cobranças)
-* Consultar documentação do provedor escolhido (nas docs do terraform) p/ detalhes
 * É aconselhado guardar o estado do terraform em um bucket s3 em vez de arquivo local, p/ não expor dados de infra no github, por ex
-* Arquivos e detalhes:
-    * main.tf - config do provedor terraform e credenciais - pegar versão do provedor no github do terraform (ver tags da branch master)
-    * terraform.tf - config do bucket s3 p/ terraform guardar seu estado 
-        * bucket = nome do bucket
-        * key = identificador dos arquivos no bucket
-    * network.tf
-        * resource = configura recurso (ver documentação terraform / provider)    
+* Consultar documentação do provedor escolhido (nas docs do terraform) p/ detalhes

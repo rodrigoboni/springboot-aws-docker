@@ -1,4 +1,5 @@
 # config aws vpc (virtual private cloud)
+# https://www.terraform.io/docs/providers/aws/d/vpc.html
 resource "aws_vpc" "beerstore" {
   cidr_block       = "192.168.0.0/16"
 
@@ -9,6 +10,7 @@ resource "aws_vpc" "beerstore" {
 }
 
 # criar 3 subnets privadas p/ instâncias bd (uma para cada zona disp)
+# https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "private_subnet" {
   # contador p/ gerar loop e criar este bloco n vezes, um loop
   count = 3
@@ -30,6 +32,7 @@ resource "aws_subnet" "private_subnet" {
 }
 
 # criar 3 subnets públicas p/ instâncias bd (uma para cada zona disp)
+# https://www.terraform.io/docs/providers/aws/r/subnet.html
 resource "aws_subnet" "public_subnet" {
   # contador p/ gerar loop e criar este bloco n vezes, um loop
   count = 3
